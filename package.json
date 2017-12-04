@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "NODE_ENV=development webpack -w --env.dev",
     "build:dev": "NODE_ENV=development webpack --env.dev",
-    "build:prod": "NODE_ENV=production webpack --progress --env.prod"
+    "build:prod": "NODE_ENV=production webpack --progress --env.prod",
+    "heroku-postbuild": "NODE_ENV=production webpack --progress --env.prod"
   },
   "keywords": [],
   "author": "",
