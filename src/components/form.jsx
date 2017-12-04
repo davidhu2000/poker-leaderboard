@@ -115,7 +115,7 @@ class Form extends React.Component {
       form.players[id] += diff;
 
       this.setState({ form });
-    }
+    };
   }
 
   update(field) {

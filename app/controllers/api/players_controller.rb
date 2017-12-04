@@ -7,6 +7,10 @@ class Api::PlayersController < ApplicationController
     Player.create(player_params) 
   end
 
+  def winnings
+    @players = Player.all.includes(:results, :buyins, :games)
+  end
+
   private 
 
   def player_params 

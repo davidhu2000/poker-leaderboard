@@ -1,4 +1,8 @@
 class Api::GamesController < ApplicationController
+  def index
+    @games = Game.all.includes(:results, :players, :winners)
+  end
+
   def create
     ActiveRecord::Base.transaction do
       _params = params[:game]

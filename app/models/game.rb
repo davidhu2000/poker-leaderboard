@@ -14,6 +14,7 @@ class Game < ApplicationRecord
   validates :buyin_amount, numericality: true
 
   has_many :buyins
+  has_many :players, through: :buyins
   has_many :results
-  has_many :players, through: :results
+  has_many :winners, through: :results, source: :player
 end

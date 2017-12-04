@@ -1,18 +1,18 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Form, GameList } from './components';
+import { Form, GameList, Calculations } from './components';
  
 class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      component: 'gamesList'
+      component: 'calculations'
     }
     autoBind(this);
   }
 
   changeComponent(component) {
-    this.setState({ component })
+    this.setState({ component });
   }
 
   renderComponent() {
@@ -21,18 +21,21 @@ class Root extends React.Component {
         return <Form />;
       case 'gamesList':
         return <GameList />;
+      case 'calculations':
+        return <Calculations />;
     }
   }
 
   render() {
     return (
       <div className='container'>
-        <nav>
-          <div class="nav-wrapper">
-            <a href="" class="brand-logo">Poker</a>
-            <ul id="nav-mobile" class="right">
+        <nav style={{ marginBottom: 20 }}>
+          <div className="nav-wrapper">
+            <a href="" className="brand-logo">Poker</a>
+            <ul id="nav-mobile" className="right">
               <li><a onClick={() => this.changeComponent('form')}>Form</a></li>
               <li><a onClick={() => this.changeComponent('gamesList')}>Games List</a></li>
+              <li><a onClick={() => this.changeComponent('calculations')}>Calculation</a></li>
             </ul>
           </div>
         </nav>
