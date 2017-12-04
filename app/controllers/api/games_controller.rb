@@ -1,6 +1,6 @@
 class Api::GamesController < ApplicationController
   def index
-    @games = Game.all.includes(:results, :players, :winners)
+    @games = Game.all.includes(:results, :players, :winners).order(:date)
   end
 
   def create
