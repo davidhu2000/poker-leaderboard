@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20171203203634) do
 
   create_table "results", force: :cascade do |t|
     t.integer  "place"
-    t.string   "amount_won"
+    t.integer  "amount_won"
     t.integer  "player_id"
     t.integer  "game_id"
     t.datetime "created_at", null: false

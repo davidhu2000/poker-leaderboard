@@ -10,9 +10,12 @@ class Form extends React.Component {
         date: new Date().toJSON().slice(0,10),
         buyin: 20,
         players: {},
-        firstPlace: {},
-        secondPlace: {},
-        thirdPlace: {}
+        firstPlaceId: '',
+        firstPlaceAmount: '',
+        secondPlaceId: '',
+        secondPlaceAmount: '',
+        thirdPlaceId: '',
+        thirdPlaceAmount: '',
       },
       selectedOption: -1,
       playerList: [],
@@ -27,9 +30,30 @@ class Form extends React.Component {
     this.fetchPlayerList();
 
     $('select').material_select();
-    $('select').change(e => {
+    $('select#buyin-select').change(e => {
       this.updateSelection(e.target.value);
-    })
+    });
+
+    $('select#first-place-select').change(e => {
+      let { form } = this.state;
+      form.firstPlaceId = Number(e.target.value);
+      form.firstPlaceAmount = this.calculateTotalPot() - 20;
+      this.setState({ form });
+    });
+    
+    $('select#second-place-select').change(e => {
+      let { form } = this.state;
+      form.secondPlaceId = Number(e.target.value);
+      form.secondPlaceAmount = 20;
+      this.setState({ form });
+    });
+    
+    $('select#third-place-select').change(e => {
+      let { form } = this.state;
+      form.thirdPlaceId = Number(e.target.value);
+      form.thirdPlaceAmount = 0;
+      this.setState({ form });
+    });
   }
 
   fetchPlayerList() {
@@ -65,7 +89,7 @@ class Form extends React.Component {
     });
 
     return total * this.state.form.buyin || 0;
-  }
+  } 
 
   updateSelection(value) {
     if (value === '0') {
@@ -94,10 +118,21 @@ class Form extends React.Component {
 
   update(field) {
     return e => {
-      this.setState({
-        form: { [field]: e.target.value }
+      let { form } = this.state;
+      form = Object.assign({}, form, {
+        [field]: e.target.value
       });
+      this.setState({ form });
     };
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/api/games',
+      method: 'POST',
+      data: { game: this.state.form }
+    });
   }
 
   renderPlayerBuyins() {
@@ -178,7 +213,7 @@ class Form extends React.Component {
 
             <div className="row">
               <div className="input-field col s12">
-                <select value={this.selectedOption} onChange={this.updateSelection.bind(this)}>
+                <select defaultValue={"-1"} onChange={this.updateSelection.bind(this)} id="buyin-select">
                   <option value="-1" disabled>Choose a player</option>
                   <option value="0">Add a player</option>
                   { this.renderPlayerSelectOptions() }
@@ -190,13 +225,51 @@ class Form extends React.Component {
             <h4>Total Pot Size: ${this.calculateTotalPot()}</h4>
 
             <div className="row">
-              <div className="input-field col s12">
-                <select value={"-1"}>
-                  <option value="-1" disabled>Choose a winner</option>
+              <div className="input-field col s8">
+                <select value={"-1"} onChange={this.updateSelection.bind(this)} id="first-place-select">
+                  <option value="-1" disabled>Choose first place</option>
                   { this.renderPlayerSelectOptions(false) }
                 </select>
                 <label>First Place</label>
-              </div>   
+              </div>
+              <div className="input-field col s4">
+                <input id="first-place" type="number" className="validate" value={this.state.form.firstPlaceAmount} onChange={this.update('firstPlaceAmount')} />
+                <label htmlFor="first-place" className='active'>Amount</label>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="input-field col s8">
+                <select value={"-1"} onChange={this.updateSelection.bind(this)} id="second-place-select">
+                  <option value="-1" disabled>Choose second place</option>
+                  { this.renderPlayerSelectOptions(false) }
+                </select>
+                <label>Second Place</label>
+              </div>
+              <div className="input-field col s4">
+                <input id="first-place" type="number" className="validate" value={this.state.form.secondPlaceAmount} onChange={this.update('secondPlaceAmount')} />
+                <label htmlFor="first-place" className='active'>Amount</label>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="input-field col s8">
+                <select value={"-1"} onChange={this.updateSelection.bind(this)} id="third-place-select">
+                  <option value="-1" disabled>Choose third place</option>
+                  { this.renderPlayerSelectOptions(false) }
+                </select>
+                <label>Third Place</label>
+              </div>
+              <div className="input-field col s4">
+                <input id="first-place" type="number" className="validate" value={this.state.form.thirdPlaceAmount} onChange={this.update('thirdPlaceAmount')} />
+                <label htmlFor="first-place" className='active'>Amount</label>
+              </div>
+            </div>
+
+            <div className="row">
+              <button class="btn waves-effect waves-light" onClick={this.handleSubmit}>
+                Submit
+              </button>
             </div>
           </form>
         </div>     

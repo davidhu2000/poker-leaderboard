@@ -60,6 +60,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    coolline (0.5.0)
+      unicode_utils (~> 1.4)
     crass (1.0.3)
     debug_inspector (0.0.3)
     erubi (1.7.0)
@@ -97,6 +99,8 @@ GEM
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-coolline (0.2.5)
+      coolline (~> 0.5)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     puma (3.11.0)
@@ -130,6 +134,7 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rb-readline (0.5.4)
     sass (3.5.3)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -160,6 +165,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.0.0)
       execjs (>= 0.3.0, < 3)
+    unicode_utils (1.4.0)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -182,9 +188,11 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   pg (~> 0.18)
+  pry-coolline
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.4)
+  rb-readline
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
