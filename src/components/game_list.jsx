@@ -35,6 +35,7 @@ class GameList extends React.Component {
       return (
         <tr>
           <td>{game.date}</td>
+          <td>${game.buyin}</td>
           <td>${game.potSize}</td>
           {this.renderWinnerCell(game.winners[0])}
           {this.renderWinnerCell(game.winners[1])}
@@ -56,6 +57,7 @@ class GameList extends React.Component {
           <thead>
             <tr>
               <th>Date</th>
+              <th>Buy In</th>
               <th>Total Pot</th>
               <th>1st Place</th>
               <th>2nd Place</th>

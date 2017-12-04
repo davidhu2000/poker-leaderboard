@@ -3,6 +3,7 @@ json.array! @games do |game|
   json.buyin game.buyin_amount
 
   json.potSize game.players.count * game.buyin_amount
+  json.buyin game.buyin_amount
 
   winners = [nil, nil, nil]
 
