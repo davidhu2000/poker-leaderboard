@@ -28,12 +28,15 @@ class Api::GamesController < ApplicationController
         game_id: @game.id
       )
 
-      Result.create(
-        place: 2,
-        amount_won: _params[:secondPlaceAmount],
-        player_id: _params[:secondPlaceId],
-        game_id: @game.id
-      )
+      if _params[:secondPlaceId]
+        Result.create(
+          place: 2,
+          amount_won: _params[:secondPlaceAmount],
+          player_id: _params[:secondPlaceId],
+          game_id: @game.id
+        )
+      end
+      
       if _params[:thirdPlaceId]
         Result.create(
           place: 3,
