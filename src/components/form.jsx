@@ -2,21 +2,23 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 
+const _defaultForm = {
+  date: new Date().toJSON().slice(0,10),
+  buyin: 20,
+  players: {},
+  firstPlaceId: '',
+  firstPlaceAmount: '',
+  secondPlaceId: '',
+  secondPlaceAmount: '',
+  thirdPlaceId: '',
+  thirdPlaceAmount: '',
+}
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {
-        date: new Date().toJSON().slice(0,10),
-        buyin: 20,
-        players: {},
-        firstPlaceId: '',
-        firstPlaceAmount: '',
-        secondPlaceId: '',
-        secondPlaceAmount: '',
-        thirdPlaceId: '',
-        thirdPlaceAmount: '',
-      },
+      form: _defaultForm,
       selectedOption: -1,
       playerList: [],
       showAddPlayerInput: false,
@@ -132,7 +134,9 @@ class Form extends React.Component {
       url: '/api/games',
       method: 'POST',
       data: { game: this.state.form }
-    });
+    }).then(
+      () => this.setState({ form: _defaultForm })
+    );
   }
 
   renderPlayerBuyins() {
