@@ -1,10 +1,9 @@
-class GamesController < ApplicationController
+class Api::GamesController < ApplicationController
   def create
-    
   end
-
-  private 
-
+  
+  private
+  
   def games_params
     params.require(:game).permit(:buyin_amount, :date, buyins: [], results: [])
   end

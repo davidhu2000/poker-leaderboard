@@ -15,3 +15,8 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+app/assets/javascripts/app.js
+app/assets/javascripts/app.js.map
+app/assets/javascripts/vendor.js
+app/assets/javascripts/vendor.js.map
