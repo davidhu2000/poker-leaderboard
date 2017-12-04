@@ -2,7 +2,10 @@ json.array! @games do |game|
   json.date game.date
   json.buyin game.buyin_amount
 
-  json.potSize game.players.count * game.buyin_amount
+  json.potSize game.buyins.inject(0) do |sum, buyin|
+    sum += buyin.number_times_bought_in * game.buyin_amount
+  end
+
   json.buyin game.buyin_amount
 
   winners = [nil, nil, nil]
