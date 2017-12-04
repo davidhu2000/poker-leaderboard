@@ -2,6 +2,8 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 
+const players = {}
+
 const _defaultForm = {
   date: new Date().toJSON().slice(0,10),
   buyin: 20,
@@ -12,13 +14,13 @@ const _defaultForm = {
   secondPlaceAmount: '',
   thirdPlaceId: '',
   thirdPlaceAmount: '',
-}
+};
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: _defaultForm,
+      form: Object.assign({}, _defaultForm, { players: {} }),
       selectedOption: -1,
       playerList: [],
       showAddPlayerInput: false,
@@ -135,7 +137,11 @@ class Form extends React.Component {
       method: 'POST',
       data: { game: this.state.form }
     }).then(
-      () => this.setState({ form: _defaultForm })
+      () => {
+        let form = Object.assign({}, _defaultForm);
+        form.players = {};
+        this.setState({ form });
+      }
     );
   }
 
