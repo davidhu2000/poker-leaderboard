@@ -39,14 +39,14 @@ class Form extends React.Component {
     $('select#first-place-select').change(e => {
       let { form } = this.state;
       form.firstPlaceId = Number(e.target.value);
-      form.firstPlaceAmount = this.calculateTotalPot() - 20;
+      form.firstPlaceAmount = this.calculateTotalPot() - form.buyin;
       this.setState({ form });
     });
     
     $('select#second-place-select').change(e => {
       let { form } = this.state;
       form.secondPlaceId = Number(e.target.value);
-      form.secondPlaceAmount = 20;
+      form.secondPlaceAmount = form.buyin;
       this.setState({ form });
     });
     
