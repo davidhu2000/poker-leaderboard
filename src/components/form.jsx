@@ -2,8 +2,6 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 
-const players = {}
-
 const _defaultForm = {
   date: new Date().toJSON().slice(0,10),
   buyin: 20,
@@ -67,7 +65,8 @@ class Form extends React.Component {
       $('select').material_select();
       let { form } = this.state;
       form.players = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1};
-      this.setState({ form })
+      this.setState({ form });
+      $('select').material_select();
     });
   }
 
@@ -92,7 +91,7 @@ class Form extends React.Component {
 
     let total = 0;
     Object.keys(players).forEach(id => {
-      total += players[id]
+      total += players[id];
     });
 
     return total * this.state.form.buyin || 0;
@@ -103,6 +102,8 @@ class Form extends React.Component {
       this.setState({
         showAddPlayerInput: true
       });
+    } else if (value === '-1') {
+      return;
     } else {
       let { players } = this.state.form;
       players[value] = 1;
@@ -153,7 +154,7 @@ class Form extends React.Component {
   renderPlayerBuyins() {
     let { form, playerList } = this.state;
     let { players } = form;
-    console.log(players)
+
     return Object.keys(players).map(id => (
       <div className="row" key={id}>
         <div className="input-field col s6">
