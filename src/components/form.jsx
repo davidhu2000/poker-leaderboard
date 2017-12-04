@@ -20,7 +20,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: Object.assign({}, _defaultForm, { players: {} }),
+      form: Object.assign({}, _defaultForm),
       selectedOption: -1,
       playerList: [],
       showAddPlayerInput: false,
@@ -65,6 +65,9 @@ class Form extends React.Component {
       playerList => this.setState({ playerList })
     ).then(() => {
       $('select').material_select();
+      let { form } = this.state;
+      form.players = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1};
+      this.setState({ form })
     });
   }
 
@@ -148,6 +151,7 @@ class Form extends React.Component {
   renderPlayerBuyins() {
     let { form, playerList } = this.state;
     let { players } = form;
+    console.log(players)
     return Object.keys(players).map(id => (
       <div className="row" key={id}>
         <div className="input-field col s6">
@@ -277,7 +281,7 @@ class Form extends React.Component {
             </div>
 
             <div className="row">
-              <button class="btn waves-effect waves-light" onClick={this.handleSubmit}>
+              <button className="btn waves-effect waves-light" onClick={this.handleSubmit}>
                 Submit
               </button>
             </div>

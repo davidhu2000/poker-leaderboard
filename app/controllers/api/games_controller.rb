@@ -13,6 +13,7 @@ class Api::GamesController < ApplicationController
       )
 
       _params[:players].each do |player_id, times_bought_in|
+        next if times_bought_in <= 0
         Buyin.create(
           number_times_bought_in: times_bought_in,
           player_id: player_id,
