@@ -115,9 +115,11 @@ class Form extends React.Component {
     return e => {
       e.preventDefault();
       let { form } = this.state;
-      let { players } = form;
-      
       form.players[id] += diff;
+
+      if (form.players[id] < 0) {
+        form.players[id] = 0;
+      }
 
       this.setState({ form });
     };
