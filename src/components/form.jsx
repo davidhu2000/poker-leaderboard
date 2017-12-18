@@ -64,7 +64,7 @@ class Form extends React.Component {
     ).then(() => {
       $('select').material_select();
       let { form } = this.state;
-      form.players = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1};
+      form.players = { 1: 1, 3: 1, 4: 1, 5: 1, 7: 1};
       this.setState({ form });
       $('select').material_select();
     });
