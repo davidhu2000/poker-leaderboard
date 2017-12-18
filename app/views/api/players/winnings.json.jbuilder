@@ -1,4 +1,5 @@
 json.array! @players do |player|
+  next if player.games_played < 5
   json.name player.name
   json.totalWinnings player.total_winnings
   json.netWinnings player.net_winnings
