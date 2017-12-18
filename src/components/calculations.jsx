@@ -31,6 +31,7 @@ class Calculations extends React.Component {
         <td>{player.numberSecond}</td>
         <td>{player.numberThird}</td>
         <td>{player.gamesPlayed}</td>
+        <td>{player.numberBuyins}</td>
       </tr>
     ));
   }
@@ -44,10 +45,11 @@ class Calculations extends React.Component {
               <th>Name</th>
               <th>Total Winnings</th>
               <th>Net Winnings</th>
-              <th>Number of 1st Place</th>
-              <th>Number of 2nd Place</th>
-              <th>Number of 3rd Place</th>
+              <th>Total 1st Place</th>
+              <th>Total 2nd Place</th>
+              <th>Total 3rd Place</th>
               <th>Games Played</th>
+              <th>Number Buyins</th>
             </tr>
           </thead>
 

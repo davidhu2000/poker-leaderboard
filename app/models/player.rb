@@ -38,4 +38,8 @@ class Player < ApplicationRecord
   def number_of_places(place)
     self.results.map(&:place).count(place)
   end
+
+  def number_buyins
+    self.buyins.map(&:number_times_bought_in).inject(&:+)
+  end
 end

@@ -7,4 +7,5 @@ json.array! @players do |player|
   json.numberFirst player.number_of_places(1)
   json.numberSecond player.number_of_places(2)
   json.numberThird player.number_of_places(3)
+  json.numberBuyins player.number_buyins
 end
