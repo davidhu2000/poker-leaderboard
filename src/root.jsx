@@ -31,10 +31,10 @@ class Root extends React.Component {
       <div className='container'>
         <nav style={{ marginBottom: 20 }}>
           <div className="nav-wrapper">
-            <a href="" className="brand-logo">Poker</a>
+            <a href="" className="brand-logo" style={{ left: '12%' }}></a>
             <ul id="nav-mobile" className="right">
               <li><a onClick={() => this.changeComponent('form')}>Form</a></li>
-              <li><a onClick={() => this.changeComponent('gamesList')}>Games List</a></li>
+              <li><a onClick={() => this.changeComponent('gamesList')}>Games</a></li>
               <li><a onClick={() => this.changeComponent('calculations')}>Calculation</a></li>
             </ul>
           </div>
