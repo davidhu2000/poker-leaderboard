@@ -23,7 +23,7 @@ class Calculations extends React.Component {
 
   renderPlayers() {
     return this.state.players.map(player => (
-      <tr>
+      <tr key={Math.random()}>
         <td>{player.name}</td>
         <td>{player.totalWinnings.toLocaleString('en', { style: 'currency', currency: "USD"}).split('.')[0]}</td>
         <td>{player.netWinnings.toLocaleString('en', { style: 'currency', currency: "USD"}).split('.')[0]}</td>

@@ -35,7 +35,7 @@ class GameList extends React.Component {
     return this.state.games.map(game => {
 
       return (
-        <tr>
+        <tr key={Math.random()}>
           <td>{game.date}</td>
           <td>${game.buyin}</td>
           <td>${game.potSize}</td>
