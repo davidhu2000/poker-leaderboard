@@ -24,7 +24,9 @@ class GameList extends React.Component {
     }
     return (
       <td>
-        {winner.name} x{winner.timesBoughtIn} (+${winner.amountWon})
+        {winner.name}
+        <br/>
+        x{winner.timesBoughtIn} (+${winner.amountWon})
       </td>
     );
   }
