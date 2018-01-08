@@ -13,7 +13,7 @@ class Calculations extends React.Component {
 
   componentDidMount() {
     $('select').material_select();
-    $('select#season-select').change(e => {
+    $('select#calulation-season-select').change(e => {
       this.update(e.target.value);
     });
 
@@ -65,7 +65,7 @@ class Calculations extends React.Component {
       <div>
         <div className="row">
           <div className="input-field col s4">
-            <select defaultValue={this.state.season} onChange={this.update.bind(this)} id="season-select">
+            <select defaultValue={this.state.season} onChange={this.update.bind(this)} id="calulation-season-select">
               <option value=''>All</option>
               <option value="2018">2018</option>
               <option value="2017">2017</option>

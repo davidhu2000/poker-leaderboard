@@ -1,6 +1,12 @@
 class Api::GamesController < ApplicationController
   def index
-    @games = Game.all.includes(:results, :players, :winners).order(date: :desc)
+    if params[:season]
+      @games = Game.where("extract(year from games.date) = ?", params[:season])
+    else
+      @games = Game.all
+    end
+
+    @games = @games.includes(:results, :players, :winners).order(date: :desc)
   end
 
   def create
