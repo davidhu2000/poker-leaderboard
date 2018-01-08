@@ -1,12 +1,14 @@
 import React from 'react';
 import autoBind from 'react-autobind';
+import { HashLoader } from 'react-spinners';
 
 class GameList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       games: [],
-      season: new Date().getFullYear()
+      season: new Date().getFullYear(),
+      loading: false
     };
     autoBind(this);
   }
@@ -27,13 +29,14 @@ class GameList extends React.Component {
 
   getGames() {
     let { season } = this.state;
+    this.setState({ loading: true })
 
     let params = season ? `season=${this.state.season}` : '';
 
     $.ajax({
       url: `/api/games?${params}`
     }).then(
-      games => this.setState({ games })
+      games => this.setState({ games, loading: false })
     );
   }
 
@@ -75,6 +78,28 @@ class GameList extends React.Component {
     return players.map(player => `${player.name} x${player.timesBoughtIn}`).join(', ');
   }
 
+  renderTable() {
+    return (
+      <table className="responsive-table highlight bordered">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Buy In</th>
+            <th>Total Pot</th>
+            <th>1st Place</th>
+            <th>2nd Place</th>
+            <th>3rd Place</th>
+            <th>Others</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {this.renderGames()}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -88,23 +113,7 @@ class GameList extends React.Component {
             <label>Choose Season</label>
           </div>
         </div>
-        <table className="responsive-table highlight bordered">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Buy In</th>
-              <th>Total Pot</th>
-              <th>1st Place</th>
-              <th>2nd Place</th>
-              <th>3rd Place</th>
-              <th>Others</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            { this.renderGames() }
-          </tbody>
-        </table>
+        {this.state.loading ? <HashLoader /> : this.renderTable()}
       </div>
     );
   }

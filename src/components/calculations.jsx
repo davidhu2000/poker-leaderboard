@@ -1,12 +1,14 @@
 import React from 'react';
 import autoBind from 'react-autobind';
+import { ClimbingBoxLoader } from 'react-spinners';
 
 class Calculations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       players: [],
-      season: new Date().getFullYear()
+      season: new Date().getFullYear(),
+      loading: false
     };
     autoBind(this);
   }
@@ -29,6 +31,8 @@ class Calculations extends React.Component {
   getWinnings() {
     let { season } = this.state;
 
+    this.setState({ loading: true })
+
     let params = season ? `season=${this.state.season}` : '';
 
     $.ajax({
@@ -36,7 +40,7 @@ class Calculations extends React.Component {
     }).then(
       players => {
         players = players.sort((a, b) => b.netWinnings - a.netWinnings);
-        this.setState({ players })
+        this.setState({ players, loading: false });
       }
     );
   }
@@ -60,7 +64,31 @@ class Calculations extends React.Component {
     ));
   }
 
+  renderTable() {
+    return (
+      <table className="responsive-table highlight bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total Winnings</th>
+            <th>Net Winnings</th>
+            <th>Total 1st Place</th>
+            <th>Total 2nd Place</th>
+            <th>Total 3rd Place</th>
+            <th>Games Played</th>
+            <th>Number Buyins</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {this.renderPlayers()}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
+
     return (
       <div>
         <div className="row">
@@ -73,24 +101,7 @@ class Calculations extends React.Component {
             <label>Choose Season</label>
           </div>
         </div>
-        <table className="responsive-table highlight bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Total Winnings</th>
-              <th>Net Winnings</th>
-              <th>Total 1st Place</th>
-              <th>Total 2nd Place</th>
-              <th>Total 3rd Place</th>
-              <th>Games Played</th>
-              <th>Number Buyins</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            { this.renderPlayers() }
-          </tbody>
-        </table>
+        {this.state.loading ? <ClimbingBoxLoader /> : this.renderTable()}
       </div>
     );
   }
