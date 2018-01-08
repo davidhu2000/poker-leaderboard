@@ -5,20 +5,44 @@ class Calculations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: []
+      players: [],
+      season: new Date().getFullYear()
     };
     autoBind(this);
   }
 
   componentDidMount() {
+    $('select').material_select();
+    $('select#season-select').change(e => {
+      this.update(e.target.value);
+    });
+
+    this.getWinnings();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.season !== this.state.season) {
+      this.getWinnings();
+    }
+  }
+
+  getWinnings() {
+    let { season } = this.state;
+
+    let params = season ? `season=${this.state.season}` : '';
+
     $.ajax({
-      url: '/api/players/winnings'
+      url: `/api/players/winnings?${params}`
     }).then(
       players => {
         players = players.sort((a, b) => b.netWinnings - a.netWinnings);
         this.setState({ players })
       }
     );
+  }
+
+  update(season) {
+    this.setState({ season });
   }
 
   renderPlayers() {
@@ -39,6 +63,16 @@ class Calculations extends React.Component {
   render() {
     return (
       <div>
+        <div className="row">
+          <div className="input-field col s4">
+            <select defaultValue={this.state.season} onChange={this.update.bind(this)} id="season-select">
+              <option value=''>All</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+            </select>
+            <label>Choose Season</label>
+          </div>
+        </div>
         <table className="responsive-table highlight bordered">
           <thead>
             <tr>
