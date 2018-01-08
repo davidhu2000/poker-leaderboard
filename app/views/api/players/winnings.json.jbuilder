@@ -1,6 +1,6 @@
 json.array! @players do |player|
   games_played = @buyins.where(player_id: player).map(&:game_id).uniq.count
-  next if games_played < 3
+  next if games_played < 5
   
   total_winnings = @results.where(player_id: player).map(&:amount_won).reduce(&:+) || 0
   
