@@ -14,11 +14,21 @@
  *= require_self
  */
 
- .player-buyin {
-   display: inline-block;
-   height: 20px;
-   width: 40px;
-   text-align: center;
-   line-height: 20px;
-   font-size: 16px;
- }
+.player-buyin {
+  display: inline-block;
+  height: 20px;
+  width: 40px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.sortable-header {
+  cursor: pointer;
+  transition-property: background-color;
+
+  &:hover {
+    background: rgba(238, 110, 115, 0.3);
+    transition-duration: 1s;
+  }
+}

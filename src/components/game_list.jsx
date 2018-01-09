@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { HashLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 
 class GameList extends React.Component {
   constructor(props) {
@@ -8,9 +8,29 @@ class GameList extends React.Component {
     this.state = {
       games: [],
       season: new Date().getFullYear(),
-      loading: false
+      loading: false,
+      sortColumn: '',
+      ascendingOrder: false
     };
     autoBind(this);
+  }
+
+  sortBy(column) {
+    let { games, sortColumn, ascendingOrder } = this.state;
+
+    function compare(p1, p2) {
+      if (sortColumn === column && !ascendingOrder) {
+        return p1[column] - p2[column];
+      } else {
+        return p2[column] - p1[column];
+      }
+    }
+
+    games = games.sort(compare);
+    ascendingOrder = !ascendingOrder;
+    sortColumn = column;
+
+    this.setState({ games, ascendingOrder, sortColumn });
   }
 
   componentDidMount() {
@@ -83,9 +103,9 @@ class GameList extends React.Component {
       <table className="responsive-table highlight bordered">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Buy In</th>
-            <th>Total Pot</th>
+            <th onClick={() => this.sortBy("date")} className="sortable-header">Date</th>
+            <th onClick={() => this.sortBy("buyin")} className="sortable-header">Buy In</th>
+            <th onClick={() => this.sortBy("potSize")} className="sortable-header">Total Pot</th>
             <th>1st Place</th>
             <th>2nd Place</th>
             <th>3rd Place</th>
@@ -113,7 +133,7 @@ class GameList extends React.Component {
             <label>Choose Season</label>
           </div>
         </div>
-        {this.state.loading ? <HashLoader /> : this.renderTable()}
+        {this.state.loading ? <BarLoader width={"100%"} /> : this.renderTable()}
       </div>
     );
   }

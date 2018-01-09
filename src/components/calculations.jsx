@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { ClimbingBoxLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 
 class Calculations extends React.Component {
   constructor(props) {
@@ -8,7 +8,9 @@ class Calculations extends React.Component {
     this.state = {
       players: [],
       season: new Date().getFullYear(),
-      loading: false
+      loading: false,
+      sortColumn: '',
+      ascendingOrder: false
     };
     autoBind(this);
   }
@@ -49,6 +51,24 @@ class Calculations extends React.Component {
     this.setState({ season });
   }
 
+  sortBy(column) {
+    let { players, sortColumn, ascendingOrder } = this.state;
+
+    function compare(p1, p2) {
+      if (sortColumn === column && !ascendingOrder) {
+        return p1[column] - p2[column];
+      } else {
+        return p2[column] - p1[column];
+      }
+    }
+    
+    players = players.sort(compare);
+    ascendingOrder = !ascendingOrder;
+    sortColumn = column;
+
+    this.setState({ players, ascendingOrder, sortColumn });
+  }
+
   renderPlayers() {
     return this.state.players.map(player => (
       <tr key={Math.random()}>
@@ -70,13 +90,13 @@ class Calculations extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Total Winnings</th>
-            <th>Net Winnings</th>
-            <th>Total 1st Place</th>
-            <th>Total 2nd Place</th>
-            <th>Total 3rd Place</th>
-            <th>Games Played</th>
-            <th>Number Buyins</th>
+            <th onClick={() => this.sortBy("totalWinnings")} className="sortable-header">Total Winnings</th>
+            <th onClick={() => this.sortBy("netWinnings")} className="sortable-header">Net Winnings</th>
+            <th onClick={() => this.sortBy("numberFirst")} className="sortable-header">Total 1st Place</th>
+            <th onClick={() => this.sortBy("numberSecond")} className="sortable-header">Total 2nd Place</th>
+            <th onClick={() => this.sortBy("numberThird")} className="sortable-header">Total 3rd Place</th>
+            <th onClick={() => this.sortBy("gamesPlayed")} className="sortable-header">Games Played</th>
+            <th onClick={() => this.sortBy("numberBuyins")} className="sortable-header">Number Buyins</th>
           </tr>
         </thead>
 
@@ -101,7 +121,7 @@ class Calculations extends React.Component {
             <label>Choose Season</label>
           </div>
         </div>
-        {this.state.loading ? <ClimbingBoxLoader /> : this.renderTable()}
+        {this.state.loading ? <BarLoader width={"100%"} /> : this.renderTable()}
       </div>
     );
   }
