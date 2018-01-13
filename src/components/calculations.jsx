@@ -10,7 +10,8 @@ class Calculations extends React.Component {
       season: new Date().getFullYear(),
       loading: false,
       sortColumn: '',
-      ascendingOrder: false
+      ascendingOrder: false,
+      minGamesFilter: 5
     };
     autoBind(this);
   }
@@ -25,17 +26,21 @@ class Calculations extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.season !== this.state.season) {
+    if (prevState.season !== this.state.season || prevState.minGamesFilter !== this.state.minGamesFilter) {
       this.getWinnings();
     }
   }
 
   getWinnings() {
-    let { season } = this.state;
+    let { season, minGamesFilter } = this.state;
 
-    this.setState({ loading: true })
+    this.setState({ loading: true });
 
     let params = season ? `season=${this.state.season}` : '';
+
+    if (minGamesFilter) {
+      params += `&min_games_filter=${minGamesFilter}`;
+    }
 
     $.ajax({
       url: `/api/players/winnings?${params}`
@@ -47,8 +52,10 @@ class Calculations extends React.Component {
     );
   }
 
-  update(season) {
-    this.setState({ season });
+  update(field) {
+    return e => {
+      this.setState({ [field]: e.target.value });
+    }
   }
 
   sortBy(column) {
@@ -113,12 +120,17 @@ class Calculations extends React.Component {
       <div>
         <div className="row">
           <div className="input-field col s4">
-            <select defaultValue={this.state.season} onChange={this.update.bind(this)} id="calulation-season-select">
+            <select defaultValue={this.state.season} onChange={this.update('season')} id="calulation-season-select">
               <option value=''>All</option>
               <option value="2018">2018</option>
               <option value="2017">2017</option>
             </select>
             <label>Choose Season</label>
+          </div>
+
+          <div className="input-field col s2">
+            <input id="buyin" type="number" className="validate" value={this.state.minGamesFilter} onChange={this.update('minGamesFilter')} />
+            <label htmlFor="buyin" className='active'>Minimum Games Filter</label>
           </div>
         </div>
         {this.state.loading ? <BarLoader width={"100%"} /> : this.renderTable()}
