@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Form, GameList, Calculations } from './components';
+import { Form, GameList, Calculations, Charts } from './components';
  
 class Root extends React.Component {
   constructor(props) {
@@ -23,6 +23,8 @@ class Root extends React.Component {
         return <GameList />;
       case 'calculations':
         return <Calculations />;
+      case 'charts':
+        return <Charts />;
     }
   }
 
@@ -36,6 +38,7 @@ class Root extends React.Component {
               <li><a onClick={() => this.changeComponent('form')}>Form</a></li>
               <li><a onClick={() => this.changeComponent('gamesList')}>Games</a></li>
               <li><a onClick={() => this.changeComponent('calculations')}>Calculation</a></li>
+              <li><a onClick={() => this.changeComponent('charts')}>Charts</a></li>
             </ul>
           </div>
         </nav>
