@@ -31,7 +31,7 @@ class Api::AnalyticsController < ApplicationController
       end
     end
 
-    @data = @data.select { |player, data| data.count >= 2 }
+    @data = @data.select { |player, data| data.count > 2 }
     
     # fill in empty dates with previous date's data
     @data.each do |player, date_hash|
