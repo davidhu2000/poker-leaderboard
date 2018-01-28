@@ -1,3 +1,4 @@
+/* global Chart */
 import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
@@ -85,7 +86,7 @@ class Charts extends React.Component {
     };
 
     let ctx = document.getElementById("canvas").getContext('2d');
-    let chart = new Chart(ctx, chartData, {});
+    let chart = new Chart(ctx, chartData, { responsive: true, maintainAspectRatio: false });
   }
 
   render() {
@@ -110,7 +111,7 @@ class Charts extends React.Component {
             <label>Choose Chart Type</label>
           </div>
         </div>
-        {this.state.loading ? <BarLoader width={"100%"} /> : <canvas id="canvas"></canvas>}
+        {this.state.loading ? <BarLoader width={"100%"} /> : <div style={{height: 400}}><canvas id="canvas" /></div>}
       </div>
     );
   }
