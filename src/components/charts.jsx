@@ -3,6 +3,7 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import { BarLoader } from 'react-spinners';
+import { hashStringToColor } from 'helpers';
 
 class Charts extends React.Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class Charts extends React.Component {
     let playerNames = Object.keys(players);
 
     for (let i = 0; i < playerNames.length; i++) {
-      let color = this.generateColor();
+      let color = hashStringToColor(playerNames[i]);
       datasets.push({
         label: playerNames[i],
         data: players[playerNames[i]][chartType],
