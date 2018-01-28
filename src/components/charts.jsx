@@ -10,7 +10,7 @@ class Charts extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      season: 2017,
+      season: 2018,
       players: [],
       dates: [],
       chartType: 'net'
