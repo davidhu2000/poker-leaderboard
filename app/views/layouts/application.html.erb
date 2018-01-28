@@ -9,7 +9,7 @@
     <% if Rails.env.production? %>
       <script>
         var _rollbarConfig = {
-            accessToken: <%= RAILS_ENV["ROLLBAR_KEY"] %>,
+            accessToken: <%= ENV["ROLLBAR_KEY"] %>,
             captureUncaught: true,
             payload: {
                 environment: "test"
