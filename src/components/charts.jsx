@@ -32,7 +32,7 @@ class Charts extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.season !== this.state.season) {
+    if (prevState.season !== this.state.season || prevState.chartType !== this.state.chartType) {
       this.getData();
     }
   }
