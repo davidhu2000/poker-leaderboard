@@ -50,14 +50,6 @@ class Charts extends React.Component {
     ).then(this.renderChart);
   }
 
-  generateColor() {
-    let value1 = Math.round(Math.random()) * 200;
-    let value2 = Math.round(Math.random()) * 200;
-    let value3 = Math.round(Math.random()) * 200;
-
-    return `rgb(${value1}, ${value2}, ${value3})`;
-  }
-
   renderChart() {
     let chartOptions = {};
 
@@ -91,6 +83,7 @@ class Charts extends React.Component {
   }
 
   render() {
+    l
     return (
       <div>
         <div className="row">
