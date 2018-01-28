@@ -83,7 +83,6 @@ class Charts extends React.Component {
   }
 
   render() {
-    l
     return (
       <div>
         <div className="row">
