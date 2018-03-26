@@ -68,7 +68,7 @@ class Form extends React.Component {
     ).then(() => {
       $('select').material_select();
       let { form } = this.state;
-      form.players = { 1: 1, 3: 1, 4: 1, 5: 1, 7: 1};
+      form.players = { 1: 1, 3: 1, 4: 1, 5: 1, 27: 1 };
       this.setState({ form });
       $('select').material_select();
     });
@@ -196,14 +196,18 @@ class Form extends React.Component {
     }
   }
 
-  renderPlayerSelectOptions(filter = true) {
+  renderPlayerSelectOptions(formPart = 'buyin') {
     let { playerList, form } = this.state;
     let playersAlreadyAdded = Object.keys(form.players);
 
     let options = Object.keys(playerList);
-    if (filter) {
+
+    if (formPart === 'buyin') {
       options = options.filter(id => !playersAlreadyAdded.includes(id));
-    } 
+    } else if (formPart === 'winner') {
+      options = options.filter(id => playersAlreadyAdded.includes(id));
+    }
+
     return options.map(id => (
       <option key={id} value={id}>{playerList[id].name}</option> 
     ));
@@ -237,7 +241,7 @@ class Form extends React.Component {
                 <select defaultValue={"-1"} onChange={this.updateSelection.bind(this)} id="buyin-select">
                   <option value="-1" disabled>Choose a player</option>
                   <option value="0">Add a player</option>
-                  { this.renderPlayerSelectOptions() }
+                  { this.renderPlayerSelectOptions('buyin') }
                 </select>
                 <label>Select a player</label>
               </div>   
@@ -249,7 +253,7 @@ class Form extends React.Component {
               <div className="input-field col s8">
                 <select value={"-1"} onChange={this.updateSelection.bind(this)} id="first-place-select">
                   <option value="-1" disabled>Choose first place</option>
-                  { this.renderPlayerSelectOptions(false) }
+                  { this.renderPlayerSelectOptions('winner') }
                 </select>
                 <label>First Place</label>
               </div>
@@ -263,7 +267,7 @@ class Form extends React.Component {
               <div className="input-field col s8">
                 <select value={"-1"} onChange={this.updateSelection.bind(this)} id="second-place-select">
                   <option value="-1" disabled>Choose second place</option>
-                  { this.renderPlayerSelectOptions(false) }
+                  { this.renderPlayerSelectOptions('winner') }
                 </select>
                 <label>Second Place</label>
               </div>
@@ -277,7 +281,7 @@ class Form extends React.Component {
               <div className="input-field col s8">
                 <select value={"-1"} onChange={this.updateSelection.bind(this)} id="third-place-select">
                   <option value="-1" disabled>Choose third place</option>
-                  { this.renderPlayerSelectOptions(false) }
+                  { this.renderPlayerSelectOptions('winner') }
                 </select>
                 <label>Third Place</label>
               </div>
