@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     get 'players/winnings', to: 'players#winnings'
 
     get 'analytics/winnings_by_date', to: "analytics#winnings_by_date"
-    get 'analytics/wins_percentage_against', to: "analytics#wins_percentage_against"
+    get 'analytics/win_loss_against', to: "analytics#win_loss_against"
   end
 end

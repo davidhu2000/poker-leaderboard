@@ -71,7 +71,7 @@ class Api::AnalyticsController < ApplicationController
     }
   end
 
-  def wins_percentage_against
+  def win_loss_against
     players = Hash.new do |h,k| 
       h[k] = Hash.new { |h2,k2| h2[k2] = { win: 0, loss: 0 } } 
     end
