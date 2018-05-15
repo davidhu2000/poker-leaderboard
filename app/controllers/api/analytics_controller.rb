@@ -129,7 +129,7 @@ class Api::AnalyticsController < ApplicationController
     end
 
     players.each do |player, records|
-      players[player] = records.delete_if { |k, v| v[:win] + v[:loss] < 5 }
+      players[player] = records.delete_if { |k, v| v[:win] + v[:loss] < 7 }
     end.delete_if { |k2, v2| v2 == {} }
 
     render json: {

@@ -121,7 +121,7 @@ class Faceoff extends React.Component {
 
           <div className="input-field col s4">
             <select defaultValue={"0"} id="player-faceoff-select">
-              <option value='0' disabled>--Select a Player--</option>
+              <option value='0' disabled>-- Select a Player --</option>
               { Object.keys(players).map(player => <option value={player}>{player}</option>)}
             </select>
             <label>Choose Chart Type</label>
