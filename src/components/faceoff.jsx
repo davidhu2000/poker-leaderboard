@@ -8,7 +8,7 @@ class Faceoff extends React.Component {
     super(props);
     this.state = {
       players: {},
-      season: 2018,
+      season: new Date().getFullYear(),
       player: null
     };
     autoBind(this);
@@ -113,6 +113,7 @@ class Faceoff extends React.Component {
           <div className="input-field col s4">
             <select defaultValue={this.state.season} id="charts-season-select">
               <option value=''>All</option>
+              <option value="2018">2019</option>
               <option value="2018">2018</option>
               <option value="2017">2017</option>
             </select>

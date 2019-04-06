@@ -127,6 +127,7 @@ class GameList extends React.Component {
           <div className="input-field col s4">
             <select defaultValue={this.state.season} onChange={this.update.bind(this)} id="games-season-select">
               <option value=''>All</option>
+              <option value="2018">2019</option>
               <option value="2018">2018</option>
               <option value="2017">2017</option>
             </select>
